@@ -48,6 +48,7 @@ class LoginController extends Controller
         //response login "success" dengan generate "Token"
         return response()->json([
             'success' => true,
+            'message' => ['Berhasil Login'],
             'user'    => auth()->guard('api_traveler')->user(),  
             'token'   => $token   
         ], 200);
@@ -63,6 +64,7 @@ class LoginController extends Controller
         //response data "user" yang sedang login
         return response()->json([
             'success' => true,
+            'message' => ['Berhasil Get Data User'],
             'user'    => auth()->guard('api_traveler')->user()
         ], 200);
     }
@@ -87,6 +89,7 @@ class LoginController extends Controller
         //response data "user" dengan "token" baru
         return response()->json([
             'success' => true,
+            'message' => ['Berhasil Refresh Token'],
             'user'    => $user,
             'token'   => $refreshToken,  
         ], 200);
@@ -106,6 +109,7 @@ class LoginController extends Controller
         //response "success" logout
         return response()->json([
             'success' => true,
+            'message' => ['Berhasil Logout']
         ], 200);
 
     }
