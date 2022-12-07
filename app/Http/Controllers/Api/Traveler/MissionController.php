@@ -21,16 +21,16 @@ class MissionController extends Controller
 
         if (request()->title) {
             $mission = DB::select(
-                "SELECT wm.mission_id 'id', m.title 'title', m.point 'point', COUNT(w.id) 'wisata'
+                "SELECT m.id 'id', m.title 'title', m.point 'point', COUNT(w.id) 'wisata'
                 FROM missions m LEFT JOIN wisata_missions wm ON(m.id = wm.mission_id) LEFT JOIN wisatas w ON(wm.wisata_id = w.id) 
                 WHERE m.title LIKE '%" . request()->title ."%' 
-                GROUP BY wm.mission_id"
+                GROUP BY m.id"
             );
             $completed_mission = DB::select(
-                "SELECT wm.mission_id 'id', m.title 'title', m.point 'point', COUNT(DISTINCT w.id) 'visited_wisata'
+                "SELECT m.id 'id', m.title 'title', m.point 'point', COUNT(DISTINCT w.id) 'visited_wisata'
                 FROM  missions m LEFT JOIN wisata_missions wm ON(m.id = wm.mission_id) LEFT JOIN wisatas w ON(wm.wisata_id = w.id) LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
                 WHERE ts.traveler_id = $traveler_id AND m.title LIKE '%" . request()->title ."%'
-                GROUP BY wm.mission_id"
+                GROUP BY m.id"
             );
 
             for ($i = 0; $i < count($completed_mission); $i++) {
@@ -42,17 +42,17 @@ class MissionController extends Controller
             }
         } else {
             $mission = DB::select(
-                "SELECT wm.mission_id 'id', m.title 'title', m.point 'point', COUNT(w.id) 'wisata'
+                "SELECT m.id 'id', m.title 'title', m.point 'point', COUNT(w.id) 'wisata'
                 FROM missions m LEFT JOIN wisata_missions wm ON(m.id = wm.mission_id) LEFT JOIN wisatas w ON(wm.wisata_id = w.id) 
-                GROUP BY wm.mission_id"
+                GROUP BY m.id"
 
             );
 
             $completed_mission = DB::select(
-                "SELECT wm.mission_id 'id', m.title 'title', m.point 'point', COUNT(DISTINCT w.id) 'visited_wisata'
+                "SELECT m.id 'id', m.title 'title', m.point 'point', COUNT(DISTINCT w.id) 'visited_wisata'
                 FROM  missions m LEFT JOIN wisata_missions wm ON(m.id = wm.mission_id) LEFT JOIN wisatas w ON(wm.wisata_id = w.id) LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
                 WHERE ts.traveler_id = $traveler_id
-                GROUP BY wm.mission_id"
+                GROUP BY m.id"
             );
 
             foreach ($completed_mission as $data) {
