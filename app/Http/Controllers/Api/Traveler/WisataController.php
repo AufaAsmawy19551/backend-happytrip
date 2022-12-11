@@ -34,14 +34,14 @@ class WisataController extends Controller
 
         if (request()->title) {
             $wisata = DB::select(
-                "SELECT w.id, w.title, w.slug, w.location, false as is_visited 
+                "SELECT w.id, w.title, w.slug, w.location, 'false' as is_visited 
                 FROM wisatas w 
                 WHERE w.title LIKE '%" .
                     request()->title .
                     "%'"
             );
             $visited_wisata = DB::select(
-                "SELECT DISTINCT w.id, w.title, w.slug, w.location, true as is_visited 
+                "SELECT DISTINCT w.id, w.title, w.slug, w.location, 'true' as is_visited 
                 FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
                 WHERE ts.traveler_id = $traveler_id AND w.title LIKE '%" .
                     request()->title .
@@ -57,12 +57,12 @@ class WisataController extends Controller
             }
         } else {
             $wisata = DB::select(
-                "SELECT w.id, w.title, w.slug, w.location, false as is_visited
+                "SELECT w.id, w.title, w.slug, w.location, 'false' as is_visited
                 FROM wisatas w"
             );
 
             $visited_wisata = DB::select(
-                "SELECT DISTINCT w.id, w.title, w.slug, w.location, true as is_visited
+                "SELECT DISTINCT w.id, w.title, w.slug, w.location, 'true' as is_visited
                 FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
                 WHERE ts.traveler_id = " . $traveler_id
             );
@@ -90,13 +90,13 @@ class WisataController extends Controller
         $traveler_id = auth()->guard('api_traveler')->user()->id;
 
         $scan_points = DB::select(
-            "SELECT sp.id, sp.wisata_id, sp.title, sp.slug, sp.description, sp.point, true 'is_visited' 
+            "SELECT sp.id, sp.wisata_id, sp.title, sp.slug, sp.description, sp.point, 'true' as 'is_visited' 
             FROM scan_points sp LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
             WHERE sp.wisata_id = $id"
         );
 
         $visited_scan_point = DB::select(
-            "SELECT sp.id, sp.wisata_id, sp.title, sp.slug, sp.description, sp.point, true 'is_visited' 
+            "SELECT sp.id, sp.wisata_id, sp.title, sp.slug, sp.description, sp.point, 'true' as 'is_visited' 
             FROM traveler_scans ts LEFT JOIN scan_points sp ON(ts.scan_point_id = sp.id)
             WHERE sp.wisata_id = $id AND (ts.traveler_id = $traveler_id OR ts.traveler_id IS NULL)"
         );
