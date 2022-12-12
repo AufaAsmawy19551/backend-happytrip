@@ -21,13 +21,13 @@ class HartakarunController extends Controller
 
         if (request()->title) {
             $hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, false 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'false' AS 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)
                 WHERE h.title LIKE '%" . request()->title . "%'"
             );
 
             $redeemed_hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, true 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'true' AS 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)
                 WHERE tr.traveler_id = $traveler_id AND h.title LIKE '%" . request()->title . "%'"
             );
@@ -41,12 +41,12 @@ class HartakarunController extends Controller
             }
         } else {
             $hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, false 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'false' AS 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)"
             );
 
             $redeemed_hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, true 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'true' AS 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)
                 WHERE tr.traveler_id = $traveler_id"
             );
@@ -55,10 +55,6 @@ class HartakarunController extends Controller
                 $hartakarun[$data->id - 1] = $data;
             }
         }
-
-        
-
-        
 
         //return with Api Resource
         return new WisataResource(true, ['List Data Hartakarun'], $hartakarun);
