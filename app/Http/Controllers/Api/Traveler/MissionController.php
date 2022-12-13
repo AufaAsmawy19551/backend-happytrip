@@ -85,13 +85,13 @@ class MissionController extends Controller
             ->user()->id;
 
         $wisata = DB::select(
-            "SELECT w.id, w.title, w.slug, w.description, w.point, false 'is_visited' 
+            "SELECT w.id, w.title, w.slug, w.description, w.point, 'false' AS 'is_visited' 
             FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
             GROUP BY w.id"
         );
 
         $visited_wisata = DB::select(
-            "SELECT w.id, w.title, w.slug, w.description, w.point, true 'is_visited' 
+            "SELECT w.id, w.title, w.slug, w.description, w.point, 'true' AS 'is_visited' 
             FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN traveler_scans ts ON(sp.id = ts.scan_point_id)
             WHERE ts.traveler_id = $traveler_id
             GROUP BY w.id"
