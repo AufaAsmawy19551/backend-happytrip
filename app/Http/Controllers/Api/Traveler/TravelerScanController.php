@@ -65,6 +65,6 @@ class TravelerScanController extends Controller
         ]);
 
         //return with Api Resource
-        return new TravelerScanResource(true, ['Scan Point Berhasil Discan'], null);
+        return new TravelerScanResource(true, ['Scan Point Berhasil Discan'], $scanPoint);
     }
 }
