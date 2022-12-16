@@ -36,7 +36,7 @@ class WisataController extends Controller
 
         if (request()->title) {
             $wisata = DB::select(
-                "SELECT w.id, w.title, w.slug, w.location, w.rating, w.harga_tiket, CONCAT('" . $url . "/', i.image) as 'image', COUNT(sp.id) as 'scanPoint', 0 as 'scanned', 'false' as is_visited, i.isPrimary
+                "SELECT w.id, w.title, w.slug, w.location, w.rating, w.harga_tiket, w.visit, CONCAT('" . $url . "/', i.image) as 'image', COUNT(sp.id) as 'scanPoint', 0 as 'scanned', 'false' as is_visited, i.isPrimary
                 FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN images i ON(w.id = i.wisata_id)
                 WHERE i.isPrimary = true AND w.title LIKE '%" . request()->title . "%'
                 GROUP BY w.id" 
@@ -58,7 +58,7 @@ class WisataController extends Controller
             }
         } else {
             $wisata = DB::select(
-                "SELECT w.id, w.title, w.slug, w.location, w.rating, w.harga_tiket, CONCAT('" . $url . "/', i.image) as 'image', COUNT(sp.id) as 'scanPoint', 0 as 'scanned', 'false' as is_visited, i.isPrimary
+                "SELECT w.id, w.title, w.slug, w.location, w.rating, w.harga_tiket, w.visit, CONCAT('" . $url . "/', i.image) as 'image', COUNT(sp.id) as 'scanPoint', 0 as 'scanned', 'false' as is_visited, i.isPrimary
                 FROM wisatas w LEFT JOIN scan_points sp ON(w.id = sp.wisata_id) LEFT JOIN images i ON(w.id = i.wisata_id)
                 WHERE i.isPrimary = true
                 GROUP BY w.id"
