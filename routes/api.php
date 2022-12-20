@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 //group route with prefix "traveler"
 Route::prefix('traveler')->group(function () {
-    
-    Route::get('/test', [App\Http\Controllers\Api\traveler\TestController::class, 'index'], ['as' => 'traveler']);
 
     //route register
     Route::post('/register', [App\Http\Controllers\Api\traveler\RegisterController::class, 'store'], ['as' => 'traveler']);
