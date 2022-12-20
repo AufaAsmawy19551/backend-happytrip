@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\traveler\RegisterController;
 use App\Http\Controllers\Api\traveler\LoginController;
+use App\Http\Controllers\Api\traveler\ProfileController;
 use App\Http\Controllers\Api\traveler\BadgeController;
 use App\Http\Controllers\Api\traveler\WisataController;
 use App\Http\Controllers\Api\traveler\MissionController;
