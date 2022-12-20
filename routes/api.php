@@ -27,43 +27,43 @@ use App\Http\Controllers\Api\traveler\TravelerScanController;
 Route::prefix('traveler')->group(function () {
 
     //route register
-    Route::post('/register', [RegisterController::class, 'store'], ['as' => 'traveler']);
+    Route::post('/register', [App\Http\Controllers\Api\traveler\RegisterController::class, 'store'], ['as' => 'traveler']);
     
     //route login
-    Route::post('/login', [LoginController::class, 'index'], ['as' => 'traveler']);
+    Route::post('/login', [App\Http\Controllers\Api\traveler\LoginController::class, 'index'], ['as' => 'traveler']);
 
     //group route with middleware "auth:api_traveler"
     Route::group(['middleware' => 'auth:api_traveler'], function() {
 
         //data user
-        Route::get('/user', [LoginController::class, 'getUser'], ['as' => 'traveler']);
+        Route::get('/user', [App\Http\Controllers\Api\traveler\LoginController::class, 'getUser'], ['as' => 'traveler']);
 
         //refresh token JWT
-        Route::get('/refresh', [LoginController::class, 'refreshToken'], ['as' => 'traveler']);
+        Route::get('/refresh', [App\Http\Controllers\Api\traveler\LoginController::class, 'refreshToken'], ['as' => 'traveler']);
 
         //logout
-        Route::post('/logout', [LoginController::class, 'logout'], ['as' => 'traveler']);
+        Route::post('/logout', [App\Http\Controllers\Api\traveler\LoginController::class, 'logout'], ['as' => 'traveler']);
 
         //profile
-        Route::post('/profile', [ProfileController::class, 'update'], ['as' => 'traveler']);
+        Route::post('/profile', [App\Http\Controllers\Api\traveler\ProfileController::class, 'update'], ['as' => 'traveler']);
         
         //badge
-        Route::apiResource('/badges', BadgeController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/badges', App\Http\Controllers\Api\traveler\BadgeController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
         
         //wisata 
-        Route::apiResource('/wisatas', WisataController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/wisatas', App\Http\Controllers\Api\traveler\WisataController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
         
         //mision
-        Route::apiResource('/missions', MissionController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/missions', App\Http\Controllers\Api\traveler\MissionController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
         
         //hartakarun
-        Route::apiResource('/hartakaruns', HartakarunController::class, ['except' => ['store', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/hartakaruns', App\Http\Controllers\Api\traveler\HartakarunController::class, ['except' => ['store', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
         
         //travelerReedem
-        Route::apiResource('/travelerRedeem', TravelerRedeemController::class, ['except' => ['index', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/travelerRedeem', App\Http\Controllers\Api\traveler\TravelerRedeemController::class, ['except' => ['index', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
         
         //travelerScan
-        Route::apiResource('/travelerScan', TravelerScanController::class, ['except' => ['index', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
+        Route::apiResource('/travelerScan', App\Http\Controllers\Api\traveler\TravelerScanController::class, ['except' => ['index', 'show', 'update', 'destroy', 'create', 'edit'], 'as' => 'traveler']);
 
 
 
