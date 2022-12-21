@@ -35,7 +35,8 @@ class HartakarunController extends Controller
             for ($i = 0; $i < count($redeemed_hartakarun); $i++) {
                 for ($j = 0; $j < count($hartakarun); $j++) {
                     if ($hartakarun[$j]->id == $redeemed_hartakarun[$i]->id) {
-                        $hartakarun[$j] = $redeemed_hartakarun[$i];
+                        // $hartakarun[$j] = $redeemed_hartakarun[$i];
+                        unset($hartakarun[$j]);
                     }
                 }
             }
@@ -52,7 +53,8 @@ class HartakarunController extends Controller
             );
 
             foreach ($redeemed_hartakarun as $data) {
-                $hartakarun[$data->id - 1] = $data;
+                // $hartakarun[$data->id - 1] = $data;
+                unset($hartakarun[$data->id - 1]);
             }
         }
 

@@ -66,18 +66,19 @@ class TravelerRedeemController extends Controller
             ]);
 
             $hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, false 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'false' as 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)"
             );
 
             $redeemed_hartakarun = DB::select(
-                "SELECT h.id, h.title, h.slug, h.description, h.point, true 'redeemed'
+                "SELECT h.id, h.title, h.slug, h.description, h.point, 'true' as 'redeemed'
                 FROM hartakaruns h Left JOIN traveler_redeems tr ON(h.id = tr.hartakarun_id)
                 WHERE tr.traveler_id = $traveler_id"
             );
 
             foreach ($redeemed_hartakarun as $data) {
-                $hartakarun[$data->id - 1] = $data;
+                // $hartakarun[$data->id - 1] = $data;
+                unset($hartakarun[$data->id - 1]);
             }
 
             //return with Api Resource
